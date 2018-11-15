@@ -6,10 +6,7 @@ class LogParser
     raise ArgumentError.new("file_path must be a String") unless file_path.class == String
 
     @log = []
-
-    IO.foreach(file_path) do |line|
-      @log << line.split(" ")
-    end
+    IO.foreach(file_path) {|line| @log << line.split(" ") }
   end
 
   def most_visits

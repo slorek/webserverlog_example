@@ -3,7 +3,7 @@
 This simple Ruby application takes a log file, produced to a specific format, and outputs useful metrics in a human-readable format:
 
 * Most page views
-* Must unique page views
+* Most unique page views
 
 ## Installing dependencies
 
@@ -18,6 +18,14 @@ Then install the gem libraries:
 ## Usage
 
 The input log file must be of a specific format: one line per logged request, with the full request path and the remote IP address only, separated by a space.
+
+Give execute permissions to the Ruby script:
+
+`chmod +x parser.rb`
+
+Run the script:
+
+`./parser.rb`
 
 ## Running tests
 
