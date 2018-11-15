@@ -18,6 +18,19 @@ class LogParser
     visits = Hash.new(0)
     log.each {|line| visits[line[0]] += 1 }
 
-    @most_visits = visits.sort_by {|path, visits| visits }.reverse
+    @most_visits = visits.sort_by(&:last).reverse
+  end
+
+  def most_unique_visits
+    return @most_unique_visits if @most_unique_visits
+
+    visits = {}
+    log.each do |line|
+      path, address = line
+      visits[path] ||= []
+      visits[path] << address
+    end
+
+    @most_unique_visits = visits.map {|path, visits| [path, visits.uniq.size] }.sort_by(&:last).reverse
   end
 end

@@ -17,8 +17,18 @@ Then install the gem libraries:
 
 ## Usage
 
+The input log file must be of a specific format: one line per logged request, with the full request path and the remote IP address only, separated by a space.
+
 ## Running tests
 
 Ensure the Gem library dependencies are installed (see above), and then execute the tests:
 
   `bundle exec rspec`
+
+## To do
+
+Things which could improve the application on further iterations:
+
+* More sanity checking of the input file
+* Options for the user to choose more output formats e.g. ascending/descending, only certain metrics
+* Use of a database server e.g. SQLite, Redis, for better performance on larger files
