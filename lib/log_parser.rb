@@ -1,33 +1,34 @@
 class LogParser
 
-  attr_reader :log
-
   def initialize(file_path)
     raise ArgumentError.new("file_path must be a String") unless file_path.class == String
+    @file_path = file_path
+  end
 
-    @log = []
-    IO.foreach(file_path) {|line| @log << line.split(" ") }
+  def visits
+    process_log unless @visits
+    @visits
   end
 
   def most_visits
     return @most_visits if @most_visits
-
-    visits = Hash.new(0)
-    log.each {|line| visits[line[0]] += 1 }
-
-    @most_visits = visits.sort_by(&:last).reverse
+    @most_visits = visits.map {|path, visits| [path, visits.size] }.sort_by(&:last).reverse
   end
 
   def most_unique_visits
     return @most_unique_visits if @most_unique_visits
+    @most_unique_visits = visits.map {|path, visits| [path, visits.uniq.size] }.sort_by(&:last).reverse
+  end
 
-    visits = {}
-    log.each do |line|
-      path, address = line
+  private
+
+  def process_log
+    @visits = {}
+
+    IO.foreach(@file_path) do |line|
+      path, address = line.split(" ")
       visits[path] ||= []
       visits[path] << address
     end
-
-    @most_unique_visits = visits.map {|path, visits| [path, visits.uniq.size] }.sort_by(&:last).reverse
   end
 end

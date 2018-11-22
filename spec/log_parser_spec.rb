@@ -19,18 +19,8 @@ describe LogParser do
     end
 
     context "with String argument" do
-      context "where argument is not a valid file path" do
-        let(:file_path) { '../test.xyz' }
-
-        it "raises an exception" do
-          expect(->{ subject }).to raise_error Errno::ENOENT
-        end
-      end
-
-      context "where argument is a valid file path" do
-        it "returns an instance" do
-          expect(subject).to be_a described_class
-        end
+      it "returns an instance" do
+        expect(subject).to be_a described_class
       end
     end
   end
